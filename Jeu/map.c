@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <curses.h>
 #include "map.h"
 
 struct map* newMap(int w, int h) {
@@ -10,6 +11,12 @@ struct map* newMap(int w, int h) {
   tmp->cases = calloc(w*h, sizeof(int));
 
   return tmp;
+}
+
+int isIn(struct map* carte, int i, int j) {
+  return i >= 0 && j >= 0 &&
+    i < carte->height &&
+    j < carte->width;
 }
 
 int getCase(struct map* carte, int i, int j) {
@@ -23,10 +30,12 @@ void setCase(struct map* carte, int i, int j, int n) {
 void printMap(struct map* carte) {
   for(int i = 0; i < carte->height; ++i) {
     for(int j = 0; j < carte->width; ++j) {
-      printf("%c", getCase(carte, i, j) == 0 ? ' ' : '#');
+      move(i, j);
+      delch();
+      insch(getCase(carte, i, j) == 0 ? ' ' : '#');
     }
-    printf("\n");
   }
+  refresh();
 }
 
 void freeMap(struct map* carte) {

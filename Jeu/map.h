@@ -1,5 +1,5 @@
-#ifndef HEAD_MAP_H
-#define HEAD_MAP_H
+#ifndef MAP_H
+#define MAP_H
 
 struct map {
   int width;
@@ -9,6 +9,9 @@ struct map {
 
 // Renvoie un pointeur vers une map de taille w*h
 struct map* newMap(int w, int h);
+
+// Renvoie si oui ou non la position donné est dans la map
+int isIn(struct map*, int i, int j);
 
 // Renvoie la case en position (j,i)
 int getCase(struct map*, int i, int j);
